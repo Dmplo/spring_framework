@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home / Project Page</title>
+    <style>
+        table {
+            width: 650px;
+            border-top: 7px solid rgb(43, 129, 17);
+            border-collapse: collapse;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+        }
+
+        td {
+            text-align: center;
+            padding: 10px;
+            border: 3px solid rgb(43, 129, 17);
+        }
+
+        th {
+            text-align: center;
+            padding: 10px;
+            border: 3px solid rgb(43, 129, 17);
+        }
+    </style>
+</head>
+<body>
+<div th:each="project : ${projects}">
+    <h1>Проект #<span th:text="${project.id}"></span></h1>
+    <h1>Записи учета рабочего времени относящиеся к этому проекту:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Идентификатор записи</th>
+            <th>Минут потрачено</th>
+            <th>Дата записи</th>
+            <th>Карточка timesheet</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="timesheet : ${project.timesheets}">
+            <td><span th:text="${timesheet.id}"></span></td>
+            <td><span th:text="${timesheet.minutes}"></span></td>
+            <td><span th:text="${timesheet.createdAt}"></span></td>
+            <td><a th:href="@{'/home/timesheets/{id}'(id=${timesheet.id})}"><span>Посмотреть</span></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
